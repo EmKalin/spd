@@ -3,7 +3,7 @@ import math
 import copy
 import heapq
 import itertools
-
+from typing import List, Any, Union
 
 
 def pobierz_dane(plik):
@@ -37,16 +37,28 @@ def kolejnosc(lista):
 
 def dynamicW(tablica):
     C = 0
-    N = copy.deepcopy(tablica)
-    for i in range (0, len(N)):
+   # x=bin(2**10-1)
+
+    # print(x[2:])
+
+   # n = len(tablica)
+
+    for i in range(0, len(tablica)):
         C = C+tablica[i][0]
 
-    fin = []
-    for i in range (0,len(N)):
-        K = N[i][1]*max(C-tablica[i][2], 0)
 
-        if len(N)>1:
-            fin.append(dynamicW(N.remove(i))+K)
+    fin=[]
+
+    for j in range(0, len(tablica)):
+
+        G = copy.deepcopy(tablica)
+        K = G[j][1]*max(C-G[j][2], 0)
+
+        if len(G)>1:
+            G.pop(j)
+            fin.append(dynamicW(G)+K)
+        else:
+            fin.append(K)
 
     opt = min(fin)
 
@@ -64,4 +76,4 @@ def zad2(pliki):
     print("Nazwa pliku: ", pliki)
     print("Wynik: ", wynik)
 
-zad2("data.txt")
+zad2("data13.txt")
